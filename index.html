@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADDICTED MUSIC — Trap In PHC</title>
+<meta name="description" content="ADDICTED MUSIC — independent trap label & artist management out of Port Harcourt, Nigeria. Est. 2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* =====================================================
+     TOKENS — edit colors / fonts / spacing here
+     ===================================================== */
+  :root{
+    --bg:            #0B0906;   /* near-black studio wall     */
+    --bg-panel:      #16110D;   /* card / panel surface        */
+    --bg-panel-2:    #1D1611;   /* slightly lighter panel      */
+    --line:          rgba(246,238,226,0.10);
+    --line-strong:   rgba(246,238,226,0.20);
+
+    --amber:         #FF6A1F;   /* shirt / flame orange        */
+    --gold:          #F2A93C;   /* lamp-bulb glow gold         */
+    --amber-dim:     rgba(255,106,31,0.35);
+    --wa:            #25D366;   /* WhatsApp brand green — merch checkout */
+
+    --ink-hi:        #F6EEE2;   /* warm ivory (headings)       */
+    --ink-mid:       #C9BAA6;   /* warm taupe (body)           */
+    --ink-low:       #8A7C6B;   /* faint (meta/captions)       */
+
+    --font-display:  'Oswald', 'Arial Narrow', sans-serif;
+    --font-body:      'Manrope', -apple-system, sans-serif;
+    --font-mono:      'Space Mono', ui-monospace, monospace;
+
+    --max: 1180px;
+    --edge: clamp(20px, 5vw, 64px);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--ink-mid);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--amber); color:#0B0906; }
+
+  /* subtle grain overlay across whole page, matches the studio photo texture */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:999;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex; align-items:center; gap:.6em;
+  }
+  .eyebrow::before{
+    content:''; width:18px; height:1px; background:var(--amber);
+    display:inline-block;
+  }
+
+  h1,h2,h3{
+    font-family:var(--font-display);
+    color:var(--ink-hi);
+    text-transform:uppercase;
+    font-weight:700;
+    letter-spacing:.01em;
+    line-height:1.02;
+  }
+
+  .wrap{ max-width:var(--max); margin:0 auto; padding-inline:var(--edge); }
+  section{ position:relative; }
+
+  /* =====================================================
+     NAV
+     ===================================================== */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:22px var(--edge);
+    display:flex; align-items:center; justify-content:space-between;
+    transition:background .35s ease, border-color .35s ease, padding .35s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.nav.scrolled{
+    background:rgba(11,9,6,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding-block:14px;
+  }
+  .brand{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.15rem;
+    letter-spacing:.14em;
+    color:var(--ink-hi);
+  }
+  .brand span{ color:var(--amber); }
+  nav.links{ display:flex; gap:36px; }
+  nav.links a{
+    font-family:var(--font-mono);
+    font-size:.74rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-mid);
+    position:relative;
+    padding-bottom:4px;
+  }
+  nav.links a::after{
+    content:''; position:absolute; left:0; right:100%; bottom:0; height:1px;
+    background:var(--amber); transition:right .25s ease;
+  }
+  nav.links a:hover{ color:var(--ink-hi); }
+  nav.links a:hover::after{ right:0; }
+  .nav-cta{
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em;
+    text-transform:uppercase; border:1px solid var(--line-strong);
+    padding:9px 16px; border-radius:2px; color:var(--ink-hi);
+    transition:border-color .25s ease, background .25s ease;
+  }
+  .nav-cta:hover{ border-color:var(--amber); background:rgba(255,106,31,.08); }
+  .menu-btn{ display:none; background:none; border:0; color:var(--ink-hi); font-size:1.4rem; cursor:pointer; }
+  .nav-right{ display:flex; align-items:center; gap:14px; }
+  .cart-trigger{
+    position:relative; background:none; border:1px solid var(--line-strong);
+    color:var(--ink-hi); width:38px; height:38px; border-radius:2px;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .25s ease, background .25s ease;
+  }
+  .cart-trigger:hover{ border-color:var(--amber); background:rgba(255,106,31,.08); }
+  .cart-trigger svg{ width:17px; height:17px; }
+  .cart-badge{
+    position:absolute; top:-6px; right:-6px; background:var(--amber); color:#0B0906;
+    font-family:var(--font-mono); font-size:.6rem; font-weight:700;
+    width:17px; height:17px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* =====================================================
+     HERO
+     ===================================================== */
+  .hero{
+    min-height:100svh;
+    display:flex; align-items:flex-end;
+    position:relative;
+    background:#000;
+  }
+  .hero-img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:58% 30%;
+    filter:saturate(1.05) contrast(1.03);
+  }
+  .hero::before{ /* vignette + darken */
+    content:''; position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(6,4,2,.55) 0%, rgba(6,4,2,.25) 30%, rgba(6,4,2,.55) 62%, rgba(6,4,2,.96) 100%),
+      radial-gradient(120% 90% at 78% 78%, rgba(242,169,60,.28), transparent 55%);
+    z-index:1;
+  }
+  .hero-content{
+    position:relative; z-index:2;
+    width:100%;
+    padding:0 var(--edge) 72px;
+  }
+  .hero-inner{ max-width:var(--max); margin:0 auto; }
+  .hero-eyebrow{
+    font-family:var(--font-mono); font-size:.78rem; letter-spacing:.24em;
+    text-transform:uppercase; color:var(--gold);
+    margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .rec-dot{
+    width:7px; height:7px; border-radius:50%; background:var(--amber);
+    box-shadow:0 0 10px 2px var(--amber-dim);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.35} }
+
+  .hero-title{
+    font-size:clamp(3.2rem, 11vw, 8.4rem);
+    letter-spacing:.01em;
+    background:linear-gradient(180deg, #fff 0%, var(--ink-hi) 55%, var(--gold) 130%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{
+    max-width:520px; margin-top:22px;
+    font-size:1.02rem; color:var(--ink-mid);
+    font-weight:500;
+  }
+  .hero-tags{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:30px;
+  }
+  .tag{
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-hi);
+    border:1px solid var(--line-strong); padding:7px 12px; border-radius:2px;
+    background:rgba(0,0,0,.25);
+  }
+  .scroll-cue{
+    position:absolute; right:var(--edge); bottom:28px; z-index:2;
+    writing-mode:vertical-rl; font-family:var(--font-mono);
+    font-size:.68rem; letter-spacing:.2em; color:var(--ink-low);
+    display:flex; align-items:center; gap:10px;
+  }
+  .scroll-cue::after{ content:''; width:1px; height:46px; background:var(--line-strong); }
+
+  /* =====================================================
+     SECTION HEADS
+     ===================================================== */
+  .sec-head{ margin-bottom:52px; }
+  .sec-head h2{ font-size:clamp(2rem,4.4vw,3.1rem); margin-top:14px; }
+  .sec-head p{ max-width:560px; margin-top:16px; color:var(--ink-mid); }
+
+  .band{ padding:120px 0; border-top:1px solid var(--line); }
+
+  /* =====================================================
+     ROSTER
+     ===================================================== */
+  .roster-grid{
+    display:grid; grid-template-columns:.85fr 1.15fr; gap:64px; align-items:center;
+  }
+  .roster-photo{
+    position:relative; border-radius:3px; overflow:hidden;
+    aspect-ratio:4/5; background:var(--bg-panel);
+    border:1px solid var(--line);
+  }
+  .roster-photo img{ width:100%; height:100%; object-fit:cover; }
+  .roster-photo::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 55%, rgba(11,9,6,.85) 100%);
+  }
+  .roster-photo .cap{
+    position:absolute; left:18px; bottom:16px; z-index:2;
+    font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-hi);
+  }
+  .roster-name{ font-size:clamp(1.9rem,3.6vw,2.6rem); margin-bottom:6px; }
+  .roster-role{
+    font-family:var(--font-mono); font-size:.78rem; color:var(--gold);
+    letter-spacing:.1em; text-transform:uppercase; margin-bottom:22px; display:block;
+  }
+  .roster-bio{ color:var(--ink-mid); max-width:52ch; margin-bottom:28px; }
+  .session-notes{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:2px; overflow:hidden;
+  }
+  .session-notes div{
+    background:var(--bg-panel); padding:16px 18px;
+  }
+  .session-notes .k{
+    font-family:var(--font-mono); font-size:.62rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-low); margin-bottom:6px;
+  }
+  .session-notes .v{ color:var(--ink-hi); font-weight:600; font-size:.92rem; }
+
+  /* =====================================================
+     RELEASES — "channel strip" list, signature element
+     ===================================================== */
+  .strip{
+    border:1px solid var(--line); border-radius:2px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .track-row{
+    display:grid;
+    grid-template-columns:56px 1fr auto auto;
+    align-items:center;
+    gap:24px;
+    padding:26px 28px;
+    border-top:1px solid var(--line);
+    transition:background .25s ease;
+  }
+  .track-row:first-child{ border-top:none; }
+  .track-row:hover{ background:var(--bg-panel-2); }
+
+  .track-num{
+    font-family:var(--font-mono); color:var(--ink-low); font-size:.82rem;
+  }
+  .track-main .track-type{
+    font-family:var(--font-mono); font-size:.66rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--amber); margin-bottom:6px; display:block;
+  }
+  .track-main h3{
+    font-size:clamp(1.15rem,2.4vw,1.55rem); text-transform:none;
+    font-family:var(--font-display); text-transform:uppercase; letter-spacing:.01em;
+  }
+  .track-main p{ color:var(--ink-low); font-size:.86rem; margin-top:6px; max-width:46ch; }
+
+  /* animated level meter — nods to the mixing console in the studio photos */
+  .meter{
+    display:flex; align-items:flex-end; gap:3px; height:22px;
+  }
+  .meter i{
+    width:3px; display:block; background:var(--amber-dim); border-radius:1px;
+    animation:levels 1.1s ease-in-out infinite;
+  }
+  .meter i:nth-child(1){ height:40%; animation-delay:-.9s; }
+  .meter i:nth-child(2){ height:80%; animation-delay:-.5s; }
+  .meter i:nth-child(3){ height:55%; animation-delay:-1.1s; }
+  .meter i:nth-child(4){ height:95%; animation-delay:-.2s; }
+  .meter i:nth-child(5){ height:30%; animation-delay:-.7s; }
+  .track-row:hover .meter i{ background:var(--gold); }
+  @keyframes levels{
+    0%,100%{ transform:scaleY(.4); opacity:.6; }
+    50%{ transform:scaleY(1); opacity:1; }
+  }
+
+  .play-btn{
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-hi);
+    border:1px solid var(--line-strong); padding:10px 16px; border-radius:2px;
+    display:flex; align-items:center; gap:8px; white-space:nowrap;
+    transition:all .25s ease;
+  }
+  .play-btn:hover{ border-color:var(--amber); color:var(--amber); background:rgba(255,106,31,.08); }
+  .play-btn svg{ width:11px; height:11px; }
+
+  /* =====================================================
+     ABOUT / LABEL
+     ===================================================== */
+  .about-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+  }
+  .about-text .lede{
+    font-size:1.3rem; color:var(--ink-hi); font-weight:600; line-height:1.45;
+    margin-bottom:22px;
+  }
+  .about-text p + p{ margin-top:16px; }
+  .about-photo{
+    position:relative; border-radius:3px; overflow:hidden;
+    aspect-ratio:3/4; border:1px solid var(--line);
+  }
+  .about-photo img{ width:100%; height:100%; object-fit:cover; filter:saturate(1.05); }
+  .founded-badge{
+    position:absolute; top:16px; left:16px; z-index:2;
+    background:rgba(11,9,6,.75); backdrop-filter:blur(6px);
+    border:1px solid var(--line-strong); border-radius:2px;
+    padding:9px 13px; font-family:var(--font-mono); font-size:.68rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--gold);
+  }
+
+  /* =====================================================
+     MERCH — shop, filters, cart, ordering (WhatsApp checkout)
+     ===================================================== */
+  .merch-filter{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px; }
+  .merch-filter button{
+    padding:9px 18px; border:1px solid var(--line-strong); background:transparent;
+    color:var(--ink-mid); font-family:var(--font-mono); font-size:.68rem;
+    letter-spacing:.1em; text-transform:uppercase; cursor:pointer; border-radius:2px;
+    transition:all .2s ease;
+  }
+  .merch-filter button:hover{ border-color:var(--amber); color:var(--ink-hi); }
+  .merch-filter button.active{ border-color:var(--amber); background:var(--amber); color:#0B0906; }
+
+  .product-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:1px; background:var(--line); border:1px solid var(--line);
+  }
+  .product-card{ background:var(--bg-panel); position:relative; cursor:pointer; overflow:hidden; transition:background .25s ease; }
+  .product-card:hover{ background:var(--bg-panel-2); }
+  .card-img-wrap{ position:relative; aspect-ratio:3/4; overflow:hidden; background:var(--bg-panel-2); }
+  .card-placeholder{ width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; }
+  .placeholder-icon{ font-family:var(--font-display); font-size:2rem; letter-spacing:.08em; color:var(--ink-hi); opacity:.14; }
+  .placeholder-label{ font-family:var(--font-mono); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-low); opacity:.7; }
+  .card-overlay{
+    position:absolute; inset:0; display:flex; align-items:flex-end; padding:16px;
+    background:linear-gradient(to top, rgba(11,9,6,.92) 0%, transparent 55%);
+    opacity:0; transition:opacity .25s ease;
+  }
+  .product-card:hover .card-overlay{ opacity:1; }
+  .order-quick{
+    width:100%; background:var(--amber); color:#0B0906; border:none; padding:10px;
+    font-family:var(--font-mono); font-weight:700; font-size:.68rem; letter-spacing:.08em;
+    text-transform:uppercase; cursor:pointer; transition:background .2s ease;
+  }
+  .order-quick:hover{ background:var(--gold); }
+  .card-badges{ position:absolute; top:12px; left:12px; display:flex; flex-direction:column; gap:6px; z-index:2; }
+  .badge{
+    font-family:var(--font-mono); font-size:.58rem; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; padding:4px 9px; border-radius:1px;
+  }
+  .badge-new{ background:var(--amber); color:#0B0906; }
+  .badge-ltd{ background:var(--ink-hi); color:#0B0906; }
+  .badge-soon{ background:transparent; border:1px solid var(--line-strong); color:var(--ink-low); }
+  .card-info{ padding:16px; }
+  .card-cat{ font-family:var(--font-mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--amber); margin-bottom:6px; }
+  .card-name{ font-family:var(--font-display); font-size:1.1rem; text-transform:uppercase; letter-spacing:.02em; color:var(--ink-hi); line-height:1.15; margin-bottom:4px; }
+  .card-price{ font-family:var(--font-mono); font-size:.74rem; color:var(--ink-mid); letter-spacing:.03em; }
+  .card-price.tba{ color:var(--ink-low); font-style:italic; }
+  .card-colors{ display:flex; gap:6px; margin-top:10px; }
+  .color-dot{ width:11px; height:11px; border-radius:50%; border:1px solid var(--line-strong); }
+
+  .merch-marquee{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:16px 0; overflow:hidden; margin:56px 0;
+  }
+  .merch-marquee-track{ display:flex; gap:44px; width:max-content; animation:mqScroll 22s linear infinite; }
+  .merch-marquee-track:hover{ animation-play-state:paused; }
+  .merch-marquee-item{
+    font-family:var(--font-display); font-size:1rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-low); white-space:nowrap;
+  }
+  .merch-marquee-item span{ color:var(--amber); margin:0 10px; }
+  @keyframes mqScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  .drops-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .drop-card{
+    position:relative; aspect-ratio:1; background:var(--bg-panel);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; cursor:pointer; overflow:hidden; transition:background .25s ease;
+  }
+  .drop-card:hover{ background:var(--bg-panel-2); }
+  .drop-icon{ font-family:var(--font-mono); font-size:.85rem; letter-spacing:.1em; color:var(--amber); }
+  .drop-title{ font-family:var(--font-display); font-size:1.15rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-hi); text-align:center; }
+  .drop-sub{ font-family:var(--font-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-low); text-align:center; }
+
+  /* cart drawer */
+  .cart-overlay{
+    position:fixed; inset:0; background:rgba(6,4,2,.7); z-index:300;
+    opacity:0; pointer-events:none; transition:opacity .3s ease; backdrop-filter:blur(6px);
+  }
+  .cart-overlay.open{ opacity:1; pointer-events:all; }
+  .cart-drawer{
+    position:fixed; right:0; top:0; bottom:0; width:min(440px,100vw);
+    background:var(--bg-panel); border-left:1px solid var(--line); z-index:301;
+    transform:translateX(100%); transition:transform .4s cubic-bezier(.16,1,.3,1);
+    display:flex; flex-direction:column;
+  }
+  .cart-drawer.open{ transform:translateX(0); }
+  .cart-head{ padding:26px 24px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
+  .cart-head h2{ font-size:1.4rem; letter-spacing:.08em; }
+  .cart-close{
+    background:transparent; border:1px solid var(--line-strong); color:var(--ink-hi);
+    width:34px; height:34px; cursor:pointer; font-family:var(--font-mono); font-size:.9rem;
+    display:flex; align-items:center; justify-content:center; transition:all .2s ease;
+  }
+  .cart-close:hover{ border-color:var(--amber); color:var(--amber); }
+  .cart-items{ flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:14px; }
+  .cart-empty{ text-align:center; padding:70px 20px; color:var(--ink-low); }
+  .cart-empty-icon{ font-family:var(--font-mono); font-size:1.6rem; margin-bottom:14px; opacity:.4; }
+  .cart-empty p{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.06em; }
+  .cart-item{ display:flex; gap:12px; padding:12px; background:var(--bg-panel-2); border:1px solid var(--line); }
+  .ci-img{
+    width:56px; height:70px; background:var(--bg); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono);
+    font-size:.65rem; color:var(--ink-low); flex-shrink:0;
+  }
+  .ci-info{ flex:1; }
+  .ci-cat{ font-family:var(--font-mono); font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; color:var(--amber); margin-bottom:4px; }
+  .ci-name{ font-family:var(--font-display); font-size:1rem; letter-spacing:.03em; color:var(--ink-hi); margin-bottom:3px; }
+  .ci-size{ font-family:var(--font-mono); font-size:.64rem; color:var(--ink-low); }
+  .ci-price{ font-family:var(--font-mono); font-size:.68rem; color:var(--ink-mid); margin-top:6px; }
+  .ci-remove{ background:none; border:none; color:var(--ink-low); cursor:pointer; font-size:.75rem; padding:2px; align-self:flex-start; flex-shrink:0; transition:color .2s ease; }
+  .ci-remove:hover{ color:var(--amber); }
+  .cart-note-wrap{ padding:0 24px 16px; }
+  .cart-note-wrap label{ font-family:var(--font-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-low); display:block; margin-bottom:8px; }
+  .cart-note-wrap textarea{
+    width:100%; background:var(--bg-panel-2); border:1px solid var(--line); color:var(--ink-hi);
+    font-family:var(--font-body); font-size:.85rem; padding:12px 14px; outline:none; resize:none;
+    min-height:64px; transition:border-color .2s ease;
+  }
+  .cart-note-wrap textarea:focus{ border-color:var(--amber); }
+  .cart-foot{ padding:18px 24px 24px; border-top:1px solid var(--line); }
+  .cart-total{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .cart-total-label{ font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-low); }
+  .cart-total-val{ font-family:var(--font-display); font-size:1.2rem; letter-spacing:.04em; color:var(--ink-hi); }
+  .wa-checkout{
+    width:100%; background:var(--wa); color:#fff; border:none; padding:15px;
+    font-family:var(--font-mono); font-weight:700; font-size:.76rem; letter-spacing:.08em;
+    text-transform:uppercase; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    gap:10px; transition:background .2s ease;
+  }
+  .wa-checkout:hover{ background:#1da851; }
+  .wa-checkout:disabled{ opacity:.35; pointer-events:none; }
+  .wa-note{ font-family:var(--font-mono); font-size:.6rem; letter-spacing:.04em; color:var(--ink-low); text-align:center; margin-top:10px; line-height:1.6; }
+
+  /* size modal */
+  .size-modal-overlay{
+    position:fixed; inset:0; background:rgba(6,4,2,.8); z-index:400;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+  .size-modal-overlay.open{ opacity:1; pointer-events:all; }
+  .size-modal{
+    background:var(--bg-panel); border:1px solid var(--line); border-bottom:none;
+    padding:30px; width:min(480px,100%);
+    transform:translateY(100%); transition:transform .35s cubic-bezier(.16,1,.3,1);
+  }
+  .size-modal-overlay.open .size-modal{ transform:translateY(0); }
+  .sm-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+  .sm-title{ font-size:1.25rem; letter-spacing:.05em; }
+  .sm-close{
+    background:none; border:1px solid var(--line-strong); color:var(--ink-hi);
+    width:30px; height:30px; cursor:pointer; font-family:var(--font-mono); font-size:.85rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .sm-close:hover{ border-color:var(--amber); color:var(--amber); }
+  .sm-label{ font-family:var(--font-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-low); margin-bottom:12px; }
+  .size-grid{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
+  .size-opt{
+    padding:9px 16px; border:1px solid var(--line-strong); background:transparent; color:var(--ink-hi);
+    font-family:var(--font-mono); font-size:.68rem; letter-spacing:.06em; cursor:pointer; transition:all .2s ease;
+  }
+  .size-opt:hover, .size-opt.active{ border-color:var(--amber); background:var(--amber); color:#0B0906; }
+  .sm-add{
+    width:100%; background:var(--ink-hi); color:#0B0906; border:none; padding:13px;
+    font-family:var(--font-mono); font-weight:700; font-size:.72rem; letter-spacing:.08em;
+    text-transform:uppercase; cursor:pointer; transition:background .2s ease;
+  }
+  .sm-add:hover{ background:var(--amber); }
+
+  .m-toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(80px);
+    background:var(--bg-panel); border:1px solid var(--amber); color:var(--ink-hi);
+    padding:12px 26px; font-family:var(--font-mono); font-size:.7rem; letter-spacing:.06em;
+    z-index:500; transition:transform .3s cubic-bezier(.34,1.56,.64,1); white-space:nowrap;
+  }
+  .m-toast.show{ transform:translateX(-50%) translateY(0); }
+
+  .wa-fab{
+    position:fixed; bottom:28px; right:28px; z-index:250; width:52px; height:52px;
+    background:var(--wa); border-radius:50%; display:flex; align-items:center; justify-content:center;
+    text-decoration:none; box-shadow:0 8px 24px rgba(37,211,102,.4); transition:transform .2s ease;
+  }
+  .wa-fab:hover{ transform:scale(1.08); }
+
+  /* =====================================================
+     CONTACT
+     ===================================================== */
+  .contact{
+    text-align:center; padding:130px 0 110px;
+    position:relative;
+  }
+  .contact::before{
+    content:''; position:absolute; left:50%; top:20px; translate:-50% 0;
+    width:520px; max-width:80vw; height:280px;
+    background:radial-gradient(closest-side, rgba(242,169,60,.16), transparent 70%);
+    pointer-events:none;
+  }
+  .contact h2{
+    font-size:clamp(2.2rem,6vw,4.2rem); position:relative; z-index:1;
+  }
+  .contact p.lead{ max-width:44ch; margin:18px auto 40px; position:relative; z-index:1; }
+  .mail-cta{
+    position:relative; z-index:1;
+    display:inline-flex; align-items:center; gap:14px;
+    font-family:var(--font-mono); font-size:clamp(1rem,2.6vw,1.3rem);
+    color:var(--ink-hi); border:1px solid var(--line-strong);
+    padding:18px 30px; border-radius:2px; letter-spacing:.02em;
+    transition:all .3s ease;
+  }
+  .mail-cta:hover{ border-color:var(--amber); color:var(--amber); box-shadow:0 0 40px -8px var(--amber-dim); }
+  .mail-cta .dot{ width:8px; height:8px; border-radius:50%; background:var(--amber); box-shadow:0 0 12px 2px var(--amber-dim); }
+  .contact-sub{
+    margin-top:28px; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--ink-low);
+    position:relative; z-index:1;
+  }
+
+  /* =====================================================
+     FOOTER
+     ===================================================== */
+  footer{
+    border-top:1px solid var(--line); padding:34px var(--edge);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  }
+  footer .fbrand{ font-family:var(--font-display); letter-spacing:.1em; color:var(--ink-hi); font-size:.9rem; }
+  footer .fmeta{ font-family:var(--font-mono); font-size:.7rem; color:var(--ink-low); letter-spacing:.06em; }
+
+  /* =====================================================
+     REVEAL ON SCROLL
+     ===================================================== */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .rec-dot, .meter i{ animation:none !important; }
+    .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+  }
+
+  /* =====================================================
+     RESPONSIVE
+     ===================================================== */
+  @media (max-width:900px){
+    .roster-grid, .about-grid{ grid-template-columns:1fr; }
+    .about-grid{ display:flex; flex-direction:column-reverse; }
+    .session-notes{ grid-template-columns:1fr 1fr; }
+    .track-row{ grid-template-columns:36px 1fr auto; }
+    .track-row .meter{ display:none; }
+    .product-grid{ grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); }
+    .drops-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:700px){
+    nav.links{
+      position:fixed; top:0; right:0; bottom:0; width:74vw; max-width:300px;
+      background:rgba(11,9,6,.98); backdrop-filter:blur(10px);
+      flex-direction:column; justify-content:center; align-items:flex-start;
+      gap:26px; padding:0 40px;
+      transform:translateX(100%); transition:transform .35s ease;
+      border-left:1px solid var(--line);
+    }
+    nav.links.open{ transform:translateX(0); }
+    .menu-btn{ display:block; }
+    .nav-cta{ display:none; }
+    .brand{ font-size:.95rem; letter-spacing:.1em; }
+    .session-notes{ grid-template-columns:1fr; }
+    .track-row{
+      grid-template-columns:1fr; row-gap:14px; text-align:left;
+    }
+    .track-row .track-num{ display:none; }
+    .play-btn{ width:fit-content; }
+    .band{ padding:80px 0; }
+    .scroll-cue{ display:none; }
+    .nav-right{ gap:8px; }
+    .product-grid{ grid-template-columns:1fr 1fr; }
+    .drops-grid{ grid-template-columns:1fr; }
+    .cart-drawer{ width:100vw; }
+    .wa-fab{ bottom:20px; right:20px; width:46px; height:46px; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="siteNav">
+  <div class="brand">ADDICTED<span> MUSIC</span></div>
+  <nav class="links" id="navLinks">
+    <a href="#roster">Roster</a>
+    <a href="#releases">Releases</a>
+    <a href="#merch">Merch</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav-right">
+    <button class="cart-trigger" id="cartOpen" aria-label="Open order cart">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h2l1.6 9.6a2 2 0 002 1.9h7.3a2 2 0 002-1.7L18 6H5"/><circle cx="8" cy="17" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="17" r="1.2" fill="currentColor" stroke="none"/></svg>
+      <span class="cart-badge" id="cartCount">0</span>
+    </button>
+    <a href="#contact" class="nav-cta">Get In The Room</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <img class="hero-img" src="assets/hero-studio.jpg" alt="Mosidon in the studio, orange plaid shirt, mixing console and warm lamp light behind him">
+  <div class="hero-content">
+    <div class="hero-inner">
+      <div class="hero-eyebrow"><span class="rec-dot"></span> Port Harcourt, Nigeria — Est. 2025</div>
+      <h1 class="hero-title">ADDICTED<br>MUSIC</h1>
+      <p class="hero-sub">Independent trap label and artist management built in the room, not the boardroom. One roster, one sound, no filler.</p>
+      <div class="hero-tags">
+        <span class="tag">Trap · PHC Drill</span>
+        <span class="tag">Label + Management</span>
+        <span class="tag">Est. 2025</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">SCROLL</div>
+</section>
+
+<!-- ===================== ROSTER ===================== -->
+<section class="band" id="roster">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The Roster</span>
+      <h2>One artist.<br>No noise.</h2>
+    </div>
+    <div class="roster-grid reveal">
+      <div class="roster-photo">
+        <img src="assets/mosidon-portrait.jpg" alt="Mosidon, artist portrait, studio setting">
+        <span class="cap">Studio session, Port Harcourt</span>
+      </div>
+      <div>
+        <span class="roster-role">Flagship Artist</span>
+        <h3 class="roster-name">Mosidon</h3>
+        <p class="roster-bio">Mosidon writes trap the way Port Harcourt runs — humid, heavy-bassed, and honest about money and the men chasing it. "MMD (Money Must Dey)" put the city's slang on record; "Trap In PHC" turned a mixtape into a mission statement. Every session starts with the console, not the trend sheet.</p>
+        <div class="session-notes">
+          <div><div class="k">Sound</div><div class="v">Melodic Trap</div></div>
+          <div><div class="k">Base</div><div class="v">Port Harcourt</div></div>
+          <div><div class="k">Status</div><div class="v">In Session</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RELEASES ===================== -->
+<section class="band" id="releases">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Session Log</span>
+      <h2>Latest Releases</h2>
+      <p>Streaming now on Audiomack. More from the console soon.</p>
+    </div>
+
+    <div class="strip reveal">
+      <div class="track-row">
+        <div class="track-num">01</div>
+        <div class="track-main">
+          <span class="track-type">Single</span>
+          <h3>MMD (Money Must Dey)</h3>
+          <p>The one that started it — PHC slang over a heavy trap pocket.</p>
+        </div>
+        <div class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <a class="play-btn" href="https://audiomack.com/addicted-music/song/mmd-money-must-dey" target="_blank" rel="noopener">
+          <svg viewBox="0 0 12 12" fill="currentColor"><path d="M1 0.5v11l10-5.5z"/></svg>
+          Listen
+        </a>
+      </div>
+      <div class="track-row">
+        <div class="track-num">02</div>
+        <div class="track-main">
+          <span class="track-type">Album</span>
+          <h3>Trap In PHC</h3>
+          <p>The full statement — a body of work built entirely out of the Port Harcourt sessions.</p>
+        </div>
+        <div class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <a class="play-btn" href="https://audiomack.com/mosidon/album/trap-in-phc-1" target="_blank" rel="noopener">
+          <svg viewBox="0 0 12 12" fill="currentColor"><path d="M1 0.5v11l10-5.5z"/></svg>
+          Listen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MERCH ===================== -->
+<section class="band" id="merch">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The Collection</span>
+      <h2>Shop The Merch</h2>
+      <p>Official Addicted Music merch — Mosidon x Froshboi Collective, "Affection Addicted: Ghetto Saga." Orders confirmed over WhatsApp.</p>
+    </div>
+
+    <div class="merch-filter reveal" id="merchFilter">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="tops">Tops</button>
+      <button data-filter="bottoms">Bottoms</button>
+      <button data-filter="footwear">Footwear</button>
+      <button data-filter="accessories">Accessories</button>
+      <button data-filter="limited">Limited</button>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+
+    <div class="merch-marquee">
+      <div class="merch-marquee-track">
+        <span class="merch-marquee-item">Mosidon<span>×</span></span>
+        <span class="merch-marquee-item">Affection Addicted<span>×</span></span>
+        <span class="merch-marquee-item">Ghetto Saga<span>×</span></span>
+        <span class="merch-marquee-item">Froshboi Collective<span>×</span></span>
+        <span class="merch-marquee-item">Est. 2025<span>×</span></span>
+        <span class="merch-marquee-item">Mosidon<span>×</span></span>
+        <span class="merch-marquee-item">Affection Addicted<span>×</span></span>
+        <span class="merch-marquee-item">Ghetto Saga<span>×</span></span>
+        <span class="merch-marquee-item">Froshboi Collective<span>×</span></span>
+        <span class="merch-marquee-item">Est. 2025<span>×</span></span>
+      </div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:0;">
+      <span class="eyebrow">Coming Soon</span>
+      <h3 style="font-size:clamp(1.6rem,3.2vw,2.2rem); margin-top:14px;">Upcoming Drops</h3>
+    </div>
+    <div class="drops-grid reveal">
+      <div class="drop-card" id="drop1">
+        <div class="drop-icon">DROP 002</div>
+        <div class="drop-title">Hoodie Collection</div>
+        <div class="drop-sub">Coming Soon</div>
+      </div>
+      <div class="drop-card" id="drop2">
+        <div class="drop-icon">DROP 003</div>
+        <div class="drop-title">Signature Sneakers</div>
+        <div class="drop-sub">In Production</div>
+      </div>
+      <div class="drop-card" id="drop3">
+        <div class="drop-icon">DROP 004</div>
+        <div class="drop-title">Accessory Pack</div>
+        <div class="drop-sub">TBA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="band" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="eyebrow">The Label</span>
+        <h2 style="margin:14px 0 24px;">About Addicted Music</h2>
+        <p class="lede">Founded in 2025 out of Port Harcourt, Addicted Music is a trap label and artist management outfit built around one belief: the room comes before the release.</p>
+        <p>We handle the business side so the artists we manage — starting with Mosidon — can stay focused on the studio. No shortcuts, no ghostwritten trends, just PHC sound made properly and put out on our own terms.</p>
+        <p>What you hear on Audiomack today is the first chapter. There's more coming out of the console.</p>
+      </div>
+      <div class="about-photo reveal">
+        <span class="founded-badge">Est. 2025 · PHC</span>
+        <img src="assets/mosidon-candid.jpg" alt="Mosidon, candid photo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow" style="justify-content:center;">Bookings &amp; Business</span>
+    <h2 style="margin-top:14px;">Get In The Room</h2>
+    <p class="lead">Features, bookings, distribution, press — one inbox, no gatekeeping.</p>
+    <a class="mail-cta" href="mailto:mosidonofficial99@gmail.com">
+      <span class="dot"></span> Contact Addicted Music
+    </a>
+    <div class="contact-sub">Port Harcourt, Nigeria</div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="fbrand">ADDICTED MUSIC</div>
+  <div class="fmeta">© 2025 Addicted Music · Trap In PHC</div>
+</footer>
+
+<!-- ===================== MERCH: CART / ORDER SYSTEM ===================== -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h2>Your Order</h2>
+    <button class="cart-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-note-wrap">
+    <label>Notes (size, colour, delivery address)</label>
+    <textarea id="cartNote" placeholder="e.g. Size M, black colourway, deliver to Port Harcourt..."></textarea>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-val" id="cartTotal">—</span>
+    </div>
+    <button class="wa-checkout" id="waCheckout">Order Via WhatsApp</button>
+    <p class="wa-note">Tap above to send your order. Pricing and delivery confirmed on chat.</p>
+  </div>
+</div>
+
+<div class="size-modal-overlay" id="sizeModal">
+  <div class="size-modal">
+    <div class="sm-head">
+      <div class="sm-title" id="smProductName">Select Size</div>
+      <button class="sm-close" id="smClose">✕</button>
+    </div>
+    <div class="sm-label">Choose your size</div>
+    <div class="size-grid" id="sizeGrid"></div>
+    <button class="sm-add" id="smAdd">Add To Order</button>
+  </div>
+</div>
+
+<div class="m-toast" id="mToast"></div>
+
+<a class="wa-fab" href="https://wa.me/2349060303273" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.524 5.849L.057 23.5l5.797-1.521A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.9 9.9 0 01-5.031-1.372l-.361-.214-3.741.981.999-3.648-.235-.374A9.862 9.862 0 012.1 12C2.1 6.53 6.53 2.1 12 2.1S21.9 6.53 21.9 12 17.47 21.9 12 21.9z"/></svg>
+</a>
+
+<script>
+  // nav background on scroll
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+<script>
+  // ===================== MERCH: PRODUCTS, FILTERS, CART, WHATSAPP CHECKOUT =====================
+  // Edit the PRODUCTS array below to add/remove/rename merch items — see the note at
+  // the end of this file for what each field does.
+  (function(){
+    var WA_NUMBER = '2349060303273';
+    var cart = [];
+    var pendingItem = null;
+    var selectedSize = null;
+
+    var PRODUCTS = [
+      {id:'t1',name:'Ghetto Saga Tee',cat:'tops',badge:'new',price:'Price on chat',colors:['#0B0906','#FF6A1F','#F6EEE2'],sizes:['XS','S','M','L','XL','XXL'],icon:'T'},
+      {id:'t2',name:'Affection Addicted Oversized Tee',cat:'tops',badge:'ltd',price:'Price on chat',colors:['#0B0906','#16110D'],sizes:['S','M','L','XL'],icon:'T'},
+      {id:'t3',name:'Mosidon Graphic Shirt',cat:'tops',badge:'new',price:'Price on chat',colors:['#FF6A1F','#0B0906'],sizes:['XS','S','M','L','XL'],icon:'S'},
+      {id:'t4',name:'Saga Crop Top',cat:'tops',badge:'',price:'Price on chat',colors:['#F6EEE2','#0B0906'],sizes:['XS','S','M','L'],icon:'T'},
+      {id:'t5',name:'Froshboi Collective Hoodie',cat:'tops',badge:'soon',price:'Coming Soon',colors:['#0B0906','#FF6A1F'],sizes:['S','M','L','XL','XXL'],icon:'H'},
+      {id:'b1',name:'Saga Cargo Pants',cat:'bottoms',badge:'new',price:'Price on chat',colors:['#0B0906','#1D1611'],sizes:['28','30','32','34','36'],icon:'P'},
+      {id:'b2',name:'Ghetto Saga Joggers',cat:'bottoms',badge:'',price:'Price on chat',colors:['#0B0906','#FF6A1F'],sizes:['S','M','L','XL'],icon:'J'},
+      {id:'b3',name:'Affection Shorts',cat:'bottoms',badge:'new',price:'Price on chat',colors:['#0B0906','#16110D','#FF6A1F'],sizes:['S','M','L','XL'],icon:'SH'},
+      {id:'f1',name:'Mosidon Signature Kicks',cat:'footwear',badge:'soon',price:'Coming Soon',colors:['#F6EEE2','#0B0906'],sizes:['39','40','41','42','43','44','45'],icon:'K'},
+      {id:'f2',name:'Ghetto Saga Slides',cat:'footwear',badge:'soon',price:'Coming Soon',colors:['#0B0906','#FF6A1F'],sizes:['39','40','41','42','43','44'],icon:'SL'},
+      {id:'f3',name:'AA High-Tops',cat:'footwear',badge:'soon',price:'Coming Soon',colors:['#0B0906','#F6EEE2'],sizes:['39','40','41','42','43','44','45'],icon:'HT'},
+      {id:'a1',name:'Saga Snapback Cap',cat:'accessories',badge:'new',price:'Price on chat',colors:['#0B0906','#FF6A1F'],sizes:['One Size'],icon:'C'},
+      {id:'a2',name:'Mosidon Chain',cat:'accessories',badge:'ltd',price:'Price on chat',colors:['#F2A93C'],sizes:['One Size'],icon:'CH'},
+      {id:'a3',name:'Froshboi Tote Bag',cat:'accessories',badge:'new',price:'Price on chat',colors:['#0B0906','#F6EEE2'],sizes:['One Size'],icon:'B'},
+      {id:'a4',name:'Ghetto Saga Socks 3-Pack',cat:'accessories',badge:'',price:'Price on chat',colors:['#F6EEE2','#FF6A1F','#0B0906'],sizes:['One Size'],icon:'SK'},
+      {id:'a5',name:'AA Wristband Set',cat:'accessories',badge:'ltd',price:'Price on chat',colors:['#0B0906','#FF6A1F'],sizes:['One Size'],icon:'W'},
+      {id:'l1',name:'Ghetto Saga Limited Box Set',cat:'limited',badge:'ltd',price:'Price on chat',colors:['#0B0906'],sizes:['S','M','L','XL'],icon:'BOX'},
+      {id:'l2',name:'Mosidon Signed Tee',cat:'limited',badge:'ltd',price:'Price on chat',colors:['#F6EEE2'],sizes:['S','M','L','XL'],icon:'SIG'},
+      {id:'l3',name:'AA Puffer Jacket',cat:'limited',badge:'ltd',price:'Price on chat',colors:['#0B0906','#FF6A1F'],sizes:['S','M','L','XL'],icon:'PJ'}
+    ];
+
+    var grid = document.getElementById('productGrid');
+    var filterBar = document.getElementById('merchFilter');
+
+    function renderProducts(filter){
+      grid.innerHTML = '';
+      var list = filter === 'all' ? PRODUCTS : PRODUCTS.filter(function(p){ return p.cat === filter; });
+      list.forEach(function(p){
+        var card = document.createElement('div');
+        card.className = 'product-card';
+
+        var badgeHtml = '';
+        if(p.badge === 'new') badgeHtml = '<div class="badge badge-new">New Drop</div>';
+        else if(p.badge === 'ltd') badgeHtml = '<div class="badge badge-ltd">Limited</div>';
+        else if(p.badge === 'soon') badgeHtml = '<div class="badge badge-soon">Coming Soon</div>';
+
+        var colorsHtml = p.colors.map(function(c){ return '<div class="color-dot" style="background:'+c+'"></div>'; }).join('');
+        var isSoon = p.badge === 'soon';
+
+        card.innerHTML =
+          '<div class="card-img-wrap">'+
+            '<div class="card-placeholder">'+
+              '<div class="placeholder-icon">'+p.icon+'</div>'+
+              '<div class="placeholder-label">Upload Photo</div>'+
+            '</div>'+
+            '<div class="card-badges">'+badgeHtml+'</div>'+
+            (isSoon ? '' : '<div class="card-overlay"><button class="order-quick">Quick Order</button></div>')+
+          '</div>'+
+          '<div class="card-info">'+
+            '<div class="card-cat">'+p.cat+'</div>'+
+            '<div class="card-name">'+p.name+'</div>'+
+            '<div class="card-price'+(isSoon?' tba':'')+'">'+p.price+'</div>'+
+            '<div class="card-colors">'+colorsHtml+'</div>'+
+          '</div>';
+
+        card.addEventListener('click', function(){
+          if(isSoon){
+            var msg = "Hey! I'm interested in the "+p.name+' (Coming Soon). Please notify me when it drops!';
+            window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg), '_blank');
+            return;
+          }
+          openSizeModal(p);
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    function openSizeModal(product){
+      pendingItem = product;
+      selectedSize = null;
+      document.getElementById('smProductName').textContent = product.name;
+      var sg = document.getElementById('sizeGrid');
+      sg.innerHTML = '';
+      product.sizes.forEach(function(s){
+        var btn = document.createElement('button');
+        btn.className = 'size-opt';
+        btn.textContent = s;
+        btn.addEventListener('click', function(){
+          sg.querySelectorAll('.size-opt').forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+          selectedSize = s;
+        });
+        sg.appendChild(btn);
+      });
+      document.getElementById('sizeModal').classList.add('open');
+    }
+
+    function addToCart(product, size){
+      cart.push({ product:product, size:size, uid:Date.now()+Math.random() });
+      document.getElementById('cartCount').textContent = cart.length;
+      showToast(product.name + ' added to order');
+    }
+
+    function openCart(){
+      renderCart();
+      document.getElementById('cartOverlay').classList.add('open');
+      document.getElementById('cartDrawer').classList.add('open');
+    }
+    function closeCart(){
+      document.getElementById('cartOverlay').classList.remove('open');
+      document.getElementById('cartDrawer').classList.remove('open');
+    }
+
+    function renderCart(){
+      var el = document.getElementById('cartItems');
+      var waBtn = document.getElementById('waCheckout');
+      var totalEl = document.getElementById('cartTotal');
+      el.innerHTML = '';
+
+      if(cart.length === 0){
+        el.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">—</div><p>Your order is empty.<br>Browse the collection.</p></div>';
+        waBtn.disabled = true;
+        totalEl.textContent = '—';
+        return;
+      }
+      waBtn.disabled = false;
+      totalEl.textContent = 'On chat';
+
+      cart.forEach(function(entry){
+        var div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML =
+          '<div class="ci-img">'+entry.product.icon+'</div>'+
+          '<div class="ci-info">'+
+            '<div class="ci-cat">'+entry.product.cat+'</div>'+
+            '<div class="ci-name">'+entry.product.name+'</div>'+
+            '<div class="ci-size">Size: '+entry.size+'</div>'+
+            '<div class="ci-price">'+entry.product.price+'</div>'+
+          '</div>'+
+          '<button class="ci-remove">✕</button>';
+        div.querySelector('.ci-remove').addEventListener('click', function(){
+          cart = cart.filter(function(e){ return e.uid !== entry.uid; });
+          document.getElementById('cartCount').textContent = cart.length;
+          renderCart();
+        });
+        el.appendChild(div);
+      });
+    }
+
+    function placeOrder(){
+      if(cart.length === 0) return;
+      var note = document.getElementById('cartNote').value.trim();
+      var lines = ['Hello! I want to order Addicted Music merch:\n'];
+      cart.forEach(function(entry, i){
+        lines.push((i+1)+'. '+entry.product.name+' — Size: '+entry.size);
+      });
+      if(note) lines.push('\nNotes: '+note);
+      lines.push('\nPlease confirm pricing and delivery. Thank you!');
+      window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(lines.join('\n')), '_blank');
+    }
+
+    var toastTimer;
+    function showToast(msg){
+      var t = document.getElementById('mToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2400);
+    }
+
+    filterBar.addEventListener('click', function(e){
+      var btn = e.target.closest('button');
+      if(!btn) return;
+      filterBar.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderProducts(btn.dataset.filter);
+    });
+
+    document.getElementById('cartOpen').addEventListener('click', openCart);
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    document.getElementById('cartOverlay').addEventListener('click', closeCart);
+    document.getElementById('waCheckout').addEventListener('click', placeOrder);
+
+    document.getElementById('smClose').addEventListener('click', function(){
+      document.getElementById('sizeModal').classList.remove('open');
+    });
+    document.getElementById('sizeModal').addEventListener('click', function(e){
+      if(e.target === this) this.classList.remove('open');
+    });
+    document.getElementById('smAdd').addEventListener('click', function(){
+      if(!pendingItem) return;
+      if(!selectedSize && pendingItem.sizes.length > 1){ showToast('Please select a size'); return; }
+      addToCart(pendingItem, selectedSize || pendingItem.sizes[0]);
+      document.getElementById('sizeModal').classList.remove('open');
+    });
+
+    var dropMsgs = {
+      drop1: 'Hey! Notify me when the Hoodie Collection drops!',
+      drop2: "Hey! I'm interested in the Signature Sneakers (Drop 003). Keep me posted!",
+      drop3: 'Hey! Let me know when the Accessory Pack drops!'
+    };
+    Object.keys(dropMsgs).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.addEventListener('click', function(){
+        window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(dropMsgs[id]), '_blank');
+      });
+    });
+
+    renderProducts('all');
+  })();
+</script>
+
+</body>
+</html>
